@@ -25,7 +25,7 @@ app.all('/*', (req, res, next) => {
 });
 
 var indexRouter = require('./routes/index');
-app.use('/api', indexRouter);
+app.use('/', indexRouter);
 
 var sequelize = require('./models').sequelize;
 sequelize.sync();
