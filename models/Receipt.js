@@ -50,6 +50,10 @@ module.exports = function(sequelize, DataTypes) {
     orderDate: {
       type: DataTypes.DATE,
       allowNull: true
+    },
+    spoon: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,

@@ -23,7 +23,10 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
   id = req.params.id
   Receipt.findOne({ where: { id: id } })
-    .then(receipt => res.json({ result: receipt }))
+    .then(receipt => {
+      
+      res.json({ result: receipt })
+    })
     .catch(err => { res.status(400).json({ error: err.message }) })
 });
 

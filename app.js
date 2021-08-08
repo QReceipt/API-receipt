@@ -27,8 +27,8 @@ app.all('/*', (req, res, next) => {
 var indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 
-var sequelize = require('./models').sequelize;
-sequelize.sync();
+// var sequelize = require('./models').sequelize; // mysql 시퀄라이저 모델
+// sequelize.sync(); //서버가 실행될때 시퀄라이저의 스키마를 DB에 적용시킨다.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

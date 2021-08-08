@@ -16,10 +16,8 @@ function initModels(sequelize) {
   Origin.hasMany(Receipt, { as: "Receipts", foreignKey: "origin"});
   Menu.belongsTo(Receipt, { as: "receipt_Receipt", foreignKey: "receipt"});
   Receipt.hasMany(Menu, { as: "Menus", foreignKey: "receipt"});
-  Receipt.hasMany(Payment, { as: "Payments", foreignKey: "receipt"});
   QRimage.belongsTo(Receipt, { as: "receipt_Receipt", foreignKey: "receipt"});
   Receipt.hasMany(QRimage, { as: "QRimages", foreignKey: "receipt"});
-  User.hasMany(Payment, { as: "Payments", foreignKey: "orderUser"});
   Receipt.belongsTo(User, { as: "seller_User", foreignKey: "seller"});
   User.hasMany(Receipt, { as: "Receipts", foreignKey: "seller"});
 
