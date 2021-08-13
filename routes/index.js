@@ -10,5 +10,8 @@ router.get('/', function(req, res, next) {
 const receiptsRouter = require('./receipts');
 router.use('/receipts', receiptsRouter);
 
+const ownersRouter = require('./owners');
+router.use('/owners', ownersRouter);
+
 
 module.exports = router;
