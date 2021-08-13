@@ -39,20 +39,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(2048),
       allowNull: true
     },
-    origin: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'Origin',
-        key: 'id'
-      }
-    },
     orderDate: {
       type: DataTypes.DATE,
       allowNull: true
     },
     spoon: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    origin: {
+      type: DataTypes.STRING(2048),
       allowNull: true
     }
   }, {
@@ -73,13 +69,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "seller" },
-        ]
-      },
-      {
-        name: "origin",
-        using: "BTREE",
-        fields: [
-          { name: "origin" },
         ]
       },
     ]

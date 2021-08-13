@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Receipt, User } = require('../models')
 
-/* GET users listing. */
+/* GET receipt listing. */
 router.get('/', function (req, res, next) {
   // 유저의 객체를 받음
   user = req.body.user
@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
   if (pageNum > 1) {
     offset = pageSize * (pageSize - 1);
   }
-
+  // 전체조회할때는 id랑 영수증 번호?? 만? --> 프론트에 리스트일 경우 뭐로 뿌려야되는지 물어보기.
   Receipt.findAll({ where: { destinationPhoneNum: user.phoneNumber }, order: [['orderDate', 'DESC']], offset: offset, limit: pageSize })
     .then(receipts => res.json({ results: receipts }))
     .catch(err => { res.status(400).json({ error: err.message }) })
@@ -24,7 +24,7 @@ router.get('/:id', function (req, res, next) {
   id = req.params.id
   Receipt.findOne({ where: { id: id } })
     .then(receipt => {
-      
+
       res.json({ result: receipt })
     })
     .catch(err => { res.status(400).json({ error: err.message }) })

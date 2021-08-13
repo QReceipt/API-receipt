@@ -15,7 +15,6 @@ db.Sequelize = Sequelize;
 db.User = require('./User')(sequelize, Sequelize);
 db.Receipt = require('./Receipt')(sequelize, Sequelize);
 db.Menu = require('./Menu')(sequelize, Sequelize);
-db.Origin = require('./Origin')(sequelize, Sequelize);
 db.QRimage = require('./QRimage')(sequelize, Sequelize);
 
 module.exports = db;
