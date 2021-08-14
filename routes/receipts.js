@@ -10,7 +10,7 @@ var andOp = Op.and
 router.get('/', function (req, res, next) {
   // 유저의 객체를 받음
   // user = req.body.user
-  phoneNumber = req.query.phoneNumber
+  user = req.body.data
 
   // pagination
   let pageNum = req.query.pageNum || 1;
@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
   // 전체조회할때는 id랑 영수증 번호?? 만? --> 프론트에 리스트일 경우 뭐로 뿌려야되는지 물어보기.
   Receipt.findAll({ 
     where: { 
-      destinationPhoneNum: phoneNumber,
+      destinationPhoneNum: user.phoneNumber,
       andOp: sequelize.where(sequelize.fn('DATE',sequelize.col('orderDate')),choiceDate)
       }, 
     order: [['orderDate', 'DESC']], offset: offset, limit: pageSize,
