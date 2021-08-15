@@ -48,7 +48,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/:id', function (req, res, next) {
-  id = req.params.id
+  let id = req.params.id
   Receipt.findOne({ where: { id: id },
     include:[
       {
@@ -68,18 +68,20 @@ router.get('/:id', function (req, res, next) {
 router.post('/', function (req, res, next) {
   // 셀러 정보 찾기 --> 가상프린터에서 정보를 어떻게 주냐에 따라 컬럼이름이 바뀜,, 컬럼이름은 내가 바꿔서 주면되고 데이터 타입이 문제일듯,
   // orderDate는 받을 때 /1000 해서 저장 줄때 *1000해서 주기 javascript 는 ms 단위.. 
-  sellerPhone = req.body.sellerPhone;
-  menu = req.body.menu;
+
+  let sellerPhone = req.body.sellerPhone;
+  let menus = req.body.menus;
   User.findOne({ attributes: ['id'], where: { phoneNumber: sellerPhone, userCategory: consts.OWNER_CATEGORY} })
     .then(seller => {
       if(seller) {
         req.body.seller = seller.id;
-        delete req.body.sellerPhone; delete req.body.menu;
+        delete req.body.sellerPhone; delete req.body.menus;
         Receipt.create(req.body)
           .then(result => {
             var menuData = menus.map((menu) => {menu["receipt"]=result.id; return menu})
+            var id = result.id
             Menu.bulkCreate(menuData)
-            .then(result=>res.json({ result: result }))
+            .then(_=>res.json({ receipt_id: id }))
             .catch(err => {
               console.log(err.message)
               res.status(500).json({error:err.message})
