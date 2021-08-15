@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(1024),
       allowNull: false
     },
-    quentity: {
+    quantity: {
       type: DataTypes.INTEGER,
       allowNull: false
     },

@@ -26,7 +26,10 @@ router.get('/', function (req, res, next) {
             }
             else res.json(400).json({error:"점주가 아님"})
         })
-        .catch(err => res.status(500))
+        .catch(err => {
+            console.log(err.message)
+            res.status(500).json({error:err.message})
+          })
     }
     else{res.status(400).json({error:"점주가 아님"})}
   })

@@ -41,7 +41,10 @@ router.get('/', function (req, res, next) {
     ]
   })
     .then(receipts => res.json({ results: receipts }))
-    .catch(err => { res.status(500).json({ error: err.message }) })
+    .catch(err => {
+      console.log(err.message)
+      res.status(500).json({error:err.message})
+    })
 })
 
 router.get('/:id', function (req, res, next) {
@@ -56,7 +59,10 @@ router.get('/:id', function (req, res, next) {
     .then(receipt => {
       res.json({ result: receipt })
     })
-    .catch(err => { res.status(400).json({ error: err.message }) })
+    .catch(err => {
+      console.log(err.message)
+      res.status(500).json({error:err.message})
+    })
 });
 
 router.post('/', function (req, res, next) {
@@ -74,13 +80,22 @@ router.post('/', function (req, res, next) {
             var menuData = menus.map((menu) => {menu["receipt"]=result.id; return menu})
             Menu.bulkCreate(menuData)
             .then(result=>res.json({ result: result }))
-            .catch(err => res.status(500).json({ error: err.message }))
+            .catch(err => {
+              console.log(err.message)
+              res.status(500).json({error:err.message})
+            })
           })
-          .catch(err => res.status(500).json({ error: err.message }))
+          .catch(err => {
+            console.log(err.message)
+            res.status(500).json({error:err.message})
+          })
       }
       else res.status(400).json({error:"점주 아님"})
     })
-    .catch(err => res.status(500).json({ error: err.message }))
+    .catch(err => {
+      console.log(err.message)
+      res.status(500).json({error:err.message})
+    })
 });
 
 router.put('/:id', function (req, res, next) {
@@ -89,11 +104,17 @@ router.put('/:id', function (req, res, next) {
       if (receipt) {
         receipt.update(req.body)
           .then(updateReceipt => res.json({ result: updateReceipt }))
-          .catch(_ => res.status(400).json({ error: err.message }))
+          .catch(err => {
+            console.log(err.message)
+            res.status(500).json({error:err.message})
+          })
       }
       else res.status(400).json({ error: "Bad request" })
     })
-    .catch(err => { res.status(400).json({ error: err.message }) })
+    .catch(err => {
+      console.log(err.message)
+      res.status(500).json({error:err.message})
+    })
 });
 
 
