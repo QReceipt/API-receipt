@@ -62,14 +62,21 @@ router.get('/:id', function (req, res, next) {
 router.post('/', function (req, res, next) {
   // 셀러 정보 찾기 --> 가상프린터에서 정보를 어떻게 주냐에 따라 컬럼이름이 바뀜,, 컬럼이름은 내가 바꿔서 주면되고 데이터 타입이 문제일듯,
   // orderDate는 받을 때 /1000 해서 저장 줄때 *1000해서 주기 javascript 는 ms 단위.. 
-  sellerPhone = req.body.sellerPhone
+  sellerPhone = req.body.sellerPhone;
+  menu = req.body.menu;
   User.findOne({ attributes: ['id'], where: { phoneNumber: sellerPhone, userCategory: consts.OWNER_CATEGORY} })
     .then(seller => {
       if(seller) {
-        req.body.seller = seller.id
+        req.body.seller = seller.id;
+        delete req.body.sellerPhone; delete req.body.menu;
         Receipt.create(req.body)
-          .then(result => res.json({ result: result }))
-          .catch(err => res.status(400).json({ error: err.message }))
+          .then(result => {
+            var menuData = menus.map((menu) => {menu["receipt"]=result.id; return menu})
+            Menu.bulkCreate(menuData)
+            .then(result=>res.json({ result: result }))
+            .catch(err => res.status(500).json({ error: err.message }))
+          })
+          .catch(err => res.status(500).json({ error: err.message }))
       }
       else res.status(400).json({error:"점주 아님"})
     })
