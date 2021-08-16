@@ -22,9 +22,10 @@ router.get('/', function (req, res, next) {
 
   // 날짜 조회
   today = new Date()
-  let year = req.query.year?? today.getFullYear();
-  let month = req.query.month?? today.getMonth()+1;
-  let day = req.query.day?? today.getDate();
+  // let year = req.query.year?? today.getFullYear();
+  let year = req.query.year || today.getFullYear();
+  let month = req.query.month || today.getMonth()+1;
+  let day = req.query.day || today.getDate();
 
   let choiceDate = `${year}-${month}-${day}`
   // 전체조회할때는 id랑 영수증 번호?? 만? --> 프론트에 리스트일 경우 뭐로 뿌려야되는지 물어보기.
